@@ -1,0 +1,132 @@
+"""
+NailVesta SKU 对照表(数据文件)
+================================
+⚠️ 有新款上架时只需要改这个文件,不用动 app.py:
+- 新增甲片款式   → SKU_NAMES 加一行
+- 新增近期新款   → 同时加入 NEW_SKUS(粉色标记)
+- 新增无尺寸 SKU → 加入 SKU_NAMES 和 SIZELESS_SKUS
+- 新增 B链产品   → B_CHAIN_SKU_MAP 加一行
+改完 push 到 GitHub,否则线上仍是旧版,会出现"❓未识别"。
+"""
+
+# ---- 甲片款式:SKU 前缀 → 产品名 ----
+SKU_NAMES = {
+    "NDF001": "Tropic Paradise", "NPX014": "Afterglow", "NDX001": "Pinky Promise",
+    "NHF001": "Gothic Moon", "NHX001": "Emerald Garden",
+    "NLF001": "Divine Emblem", "NLF002": "Athena's Glow", "NLJ001": "Golden Pearl",
+    "NLJ002": "BAROQUE BLISS", "NLJ003": "Rainbow Reef",
+    "NLX001": "Mermaid's Whisper", "NLX003": "Tropical Tide", "NLX005": "Pure Grace",
+    "NOF001": "Royal Amber", "NOF002": "Tiger Lily",
+    "NOF003": "Peach Pop", "NOF004": "Sunset Punch", "NOF005": "Glacier Petal",
+    "NOJ001": "Island Bloom", "NOJ002": "Floral Lemonade",
+    "NOJ003": "Aurora Tide", "NOX001": "Lava Latte", "NPD001": "Leopard's Kiss",
+    "NPF001": "Angel's Grace", "NPF002": "Sacred Radiance",
+    "NPF003": "Golden Ivy", "NPF005": "Auric Taurus", "NPF006": "Cocoa Blossom",
+    "NPF007": "Bluebell Glow", "NPF008": "Lavender Angel",
+    "NPF009": "Vintage Bloom", "NPF010": "Pastel Meadow", "NPF011": "Cherry Cheetah",
+    "NPF012": "Rosey Tigress", "NPJ001": "SCARLET QUEEN",
+    "NPJ003": "Stellar Capricorn", "NPJ004": "Midnight Violet", "NPJ005": "Vintage Cherry",
+    "NPJ006": "Savanna Bloom", "NPJ007": "Angel's Blush",
+    "NPJ008": "Gothic Sky", "NPJ009": "Violet Seashell", "NPX001": "Royal Elegance",
+    "NPX002": "Angel's Ruby", "NPX005": "Indigo Breeze",
+    "NPX006": "Autumn Petal", "NPX007": "Lavender Bliss", "NPX008": "Dreamy Ballerina",
+    "NPX009": "Rose Eden", "NPX010": "Blooming Meadow",
+    "NPX011": "Safari Petal", "NPX012": "Milky Ribbon", "NPX013": "Champagne Wishes",
+    "NLX004": "Holiday Bunny", "NPJ010": "Glossy Doll",
+    "NPF013": "Opal Glaze", "NOX002": "Cherry Kiss", "NOJ004": "Peachy Coast",
+    "NYJ001": "Rosy Ribbon", "NOF008": "Starlit Jungle",
+    "NOF006": "Coral Sea", "NOF009": "Rosé Angel", "NPF014": "Arabian Nights",
+    "NOX003": "Caramel Nova", "NPF016": "Golden Muse",
+    "NPF017": "Ruby Bloom", "NOF007": "Citrus Blush", "NOJ005": "Ocean Whisper",
+    "NPF015": "Rosé Petal", "NOF010": "Spring Moss",
+    "NM001": "Mystery Set", "NOF011": "Velvet Flame", "NPJ011": "Bat Boo",
+    "NOX004": "Azure Muse", "NPX016": "Silky Pearl",
+    "NPX015": "Spooky Clown", "NOX005": "Honey Daisy", "NPJ012": "Gothic Mirage",
+    "NOX006": "Imperial Bloom", "NPX017": "Rouge Letter",
+    "NOF013": "Sakura Blush", "NPF018": "Wild Berry", "NOF012": "Rose Nocturne",
+    "NIX001": "Golden Maple", "NOX007": "Stellar Whisper",
+    "NOF014": "Desert Rose", "NPF019": "Lunar Whisper", "NOF015": "Mocha Grace",
+    "NOX009": "Moonlit Petal", "NOX008": "Espresso Petals",
+    "NPX018": "Ruby Ribbon", "NPF020": "Amber Mist", "NOJ006": "Toffee Muse",
+    "NOJ007": "Cherry Glaze", "NOX011": "Opal Mirage",
+    "NOF016": "Cinnamon Bloom", "NOX010": "Twilight Muse", "NPX020": "Peachy Glaze",
+    "NPX019": "Blossom Tart", "NPJ013": "Velvet Cherry",
+    "NOX012": "Harvest Glaze", "NOJ008": "Crystal Whisper", "NOF017": "Twinkle Bow",
+    "NPX021": "Twinkle Pine", "NOF018": "Glacier Bloom",
+    "NOJ010": "Rosé Noir", "NPX022": "Merry Charm", "NPF022": "Holiday Sparkl",
+    "NOF020": "Garnet Muse", "NOF019": "Twinkle Christmas",
+    "NOJ011": "Snowy Comet", "NOX013": "Christmas Village", "NOJ009": "Reindeer Glow",
+    "NIX002": "Golden Orchid",
+    "NPJ014": "Snow Pixie", "NPJ018": "Frost Ruby", "NPJ017": "Starlit Rift",
+    "NPF021": "Candy Cane", "NPJ016": "Fairy Nectar",
+    "NPJ015": "Icy Viper", "NOX014": "Taro Petal",
+    "NVT001": "Tool Kits", "NVT002": "Tool Kits", "NSB001": "Storage Box",
+    "NOB001": "Organizer Binder", "NOB002": "Organizer Binder",
+    "NF001": "Free Giveaway", "NB001": "Organizer Binder",
+    "NIF001": "Lilac Veil", "NIF002": "Gingerbread", "NOX015": "Glitter Doll",
+    "NOJ012": "Winery Flame",
+    "NOF021": "Velvet Ribbon", "NPX024": "Rose Wine", "NPX023": "Blooming Kiss",
+    "NMF001": "Cherry Crush", "NBX001": "Ballet Petal",
+    "NMF003": "Royal Treasure", "NMF002": "Safari Princess", "NOJ013": "Midnight Denim",
+    "NOJ014": "Imperial Frost",
+    "NPJ019": "Gothic Mist", "NOJ015": "Sapphire Bloom", "NOX029": "Tidal Mirage",
+    "NVF007": "Tangerine Tide", "NOF036": "Honey Petal", "NOJ030": "Glitter Jasmine",
+    "NPX025": "Cocoa Teddy", "NVF001": "Golden Bloom", "NBJ002": "Cherry Drop",
+    "NVX003": "Tidal Butterfly", "NOX030": "Glitter Matcha", "NOF043": "Golden Camellia",
+    "NOF044": "Moss Petal",
+    "NOF022": "Aqua Reverie", "NDJ001": "Snow Knit", "NOF023": "Arctic Starlight",
+    "NOX016": "Cherry Ribbon", "NOX017": "Ruby Bow", "NMF004": "Lavender Bloom",
+    "NDX002": "Cloudy Knit", "NMJ003": "Gothic Rose",
+    "NOF025": "Cherry Romance", "NMJ001": "Milky Cloud", "NOX028": "Rose Champagne",
+    "NOF040": "Champagne Shell", "NOF041": "Blooming Malibu", "NOF042": "Rosy Puff",
+    "NMX001": "Petal Muse", "NOF024": "Floral Muse", "NVX001": "Sakura Macaron",
+    "NVF002": "Dreamy Bloom", "NOJ017": "Floral Garden",
+    "NOJ016": "Jade Blossom", "NVX002": "Pastel Bloom", "NVF008": "Glazed Ballet",
+    "NWF008": "Waikiki Blossom", "NWF009": "Petal French",
+    "NPF023": "Fairy Garden", "NBJ001": "Stone Petal", "NOF027": "Acai Bloom",
+    "NPJ021": "Champagne Blossom", "NPJ020": "Citrus Daisy",
+    "NOJ018": "Ribbon Lily", "NVF005": "Dreamy Sakura", "NOF037": "Tropical Spritz",
+    "NOF039": "Citrus Pop", "NVJ005": "Guava Nectar",
+    "NDX003": "Meadow Petals", "NOX018": "Strawberry Kiss", "NOJ020": "Raibow Bloom",
+    "NPF026": "Seaside Sundae", "NVJ001": "Prism Aura",
+    "NDX005": "Midnight Glam", "NDX004": "Starry Tide", "NWF006": "Pastel Jungle",
+    "NWF007": "Peachy Seaside", "NOJ031": "Palm Mojito",
+    "NPX027": "Hibiscus Tide", "NPX026": "Ocean Yuzu", "NWX001": "Seashell Sorbet",
+    "NOF026": "Island Paradise", "NPF024": "Tropical Breeze",
+    "NOJ021": "Petal Gelato", "AUCTION": "Picks Any 2 Sets, 50 g, Choose Your Size",
+    "NVF003": "Apricot Cream", "NMJ005": "Glossy Aura", "NGX001": "Seafoam Jewel",
+    "NOF028": "Floral Cherry", "NTX001": "Coraline Glow",
+    "NOX020": "Floral Drip", "NOX019": "Mint Petal", "NOF030": "Citrus Veil",
+    "NOJ032": "Lavender Prism",
+    "NOF031": "Lady Cherry", "NOF029": "Marine Glow", "NDJ002": "Aqua Blush",
+    "NWF001": "Berry Bowtie", "NTF001": "Pastel Coast", "NWF005": "Sunflower Safari",
+    "NOJ028": "Cowgirl Charm", "NOJ029": "Pearl Tide",
+    "NOX025": "Golden Nectar", "NWX002": "Meadow Daisy", "NOX023": "Mermaid Glam",
+    "NOX021": "Peach Ember", "NOX022": "Sunlit Petals",
+    "NOX024": "Teal Blossom", "NVF006": "Lime Petals", "NOJ022": "Leaf Petals",
+    "NOF032": "Tidal Flower", "NWF002": "Tropic Shell", "NMX004": "MYSTERY BOX",
+    "NOF034": "Golden Hibiscus", "NOF033": "Jade Garden", "NOJ023": "Mermaid Shell",
+    "NOJ024": "Sunset Treasure", "NBX003": "Jelly Petal", "NWF003": "Silk Blossom",
+    "NWF004": "Melon Petal",
+    "NVJ002": "Mochi Blossom", "NOJ025": "Petal Empress", "NVJ003": "Petal Throne",
+    "NWX003": "Aloha Bloom", "NOX026": "Papaya Bloom", "NOF035": "Ocean Picnic",
+    "NOJ026": "Aqua Taffy", "NOX027": "Coral Foam", "NOJ027": "Opal Dynasty",
+}
+
+# ---- 近期新款(明细表里标粉色) ----
+NEW_SKUS = {
+    "NOX025", "NWX002", "NOX023", "NOX021",
+    "NOX022", "NOX024", "NVF006", "NOJ022",
+}
+
+# ---- 无尺寸特殊款(独立成行、灰色背景、不参与库位拣货) ----
+SIZELESS_SKUS = {"NF001", "NB001"}
+
+# ---- B链产品:SKU → 汇总名称 ----
+B_CHAIN_SKU_MAP = {
+    "NVT001": "工具包 Toolkits",
+    "NVT002": "工具包 Toolkits",
+    "NSB001": "美甲折叠盒 Storage Box",
+    "NOB001": "Organizer Binder 美甲册",
+    "NOB002": "Organizer Binder 美甲册",
+}
