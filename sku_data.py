@@ -111,7 +111,7 @@ SKU_NAMES = {
     "NVJ002": "Mochi Blossom", "NOJ025": "Petal Empress", "NVJ003": "Petal Throne",
     "NWX003": "Aloha Bloom", "NOX026": "Papaya Bloom", "NOF035": "Ocean Picnic",
     "NOJ026": "Aqua Taffy", "NOX027": "Coral Foam", "NOJ027": "Opal Dynasty",
-    "NOF045": "Indigo Petals", "NOF046": "Azure Splash","NWF010": "Peach Peony",
+    "NOF045": "Indigo Petals", "NOF046": "Azure Splash","NWF010": "Peachy Peony",
 }
 
 # ---- 近期新款(明细表里标粉色) ----
