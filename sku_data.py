@@ -10,7 +10,7 @@ NailVesta SKU 对照表(数据文件)
 """
 
 # ---- 甲片款式:SKU 前缀 → 产品名 ----
-SKU_NAMES = {
+SKU_NAMES = { 
     "NDF001": "Tropic Paradise", "NPX014": "Afterglow", "NDX001": "Pinky Promise",
     "NHF001": "Gothic Moon", "NHX001": "Emerald Garden",
     "NLF001": "Divine Emblem", "NLF002": "Athena's Glow", "NLJ001": "Golden Pearl",
