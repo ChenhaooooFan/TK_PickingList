@@ -102,23 +102,23 @@ SKU_NAMES = {
     "NWF001": "Berry Bowtie", "NTF001": "Pastel Coast", "NWF005": "Sunflower Safari",
     "NOJ028": "Cowgirl Charm", "NOJ029": "Pearl Tide",
     "NOX025": "Golden Nectar", "NWX002": "Meadow Daisy", "NOX023": "Mermaid Glam",
-    "NOX021": "Peach Ember", "NOX022": "Sunlit Petals",
+    "NOX021": "Peach Ember", "NOX022": "Sunlit Petals", "NOJ033": "Lemon Laguna",
     "NOX024": "Teal Blossom", "NVF006": "Lime Petals", "NOJ022": "Leaf Petals",
     "NOF032": "Tidal Flower", "NWF002": "Tropic Shell", "NMX004": "MYSTERY BOX",
     "NOF034": "Golden Hibiscus", "NOF033": "Jade Garden", "NOJ023": "Mermaid Shell",
     "NOJ024": "Sunset Treasure", "NBX003": "Jelly Petal", "NWF003": "Silk Blossom",
-    "NWF004": "Melon Petal",
+    "NWF004": "Melon Petal", "NOF038": "Leopard Blossom", "NVX004": "Glossy Violet", "NVX005": "Lilac Elegance",
     "NVJ002": "Mochi Blossom", "NOJ025": "Petal Empress", "NVJ003": "Petal Throne",
     "NWX003": "Aloha Bloom", "NOX026": "Papaya Bloom", "NOF035": "Ocean Picnic",
     "NOJ026": "Aqua Taffy", "NOX027": "Coral Foam", "NOJ027": "Opal Dynasty",
-    "NOF045": "Indigo Petals", "NOF046": "Azure Splash","NWF010": "Peachy Peony",
+    "NOF045": "Indigo Petals", "NOF046": "Azure Splash", "NWF010": "Peachy Peony",
 }
 
 # ---- 近期新款(明细表里标粉色) ----
 NEW_SKUS = {
     "NOX025", "NWX002", "NOX023", "NOX021",
     "NOX022", "NOX024", "NVF006", "NOJ022",
-    "NOF045", "NOF046","NWF010",
+    "NOF045", "NOF046","NWF010", "NOF038", "NVX004", "NVX005", "NOJ033",
 }
 
 # ---- 无尺寸特殊款(独立成行、灰色背景、不参与库位拣货) ----
