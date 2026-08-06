@@ -102,12 +102,13 @@ SKU_NAMES = {
     'NOF047': 'Vintage Marigold', 'NOF048': 'Garden Dew', 'NOX031': 'Gilded Truffle',
     'NVX006': 'Polka Petal', 'NWX004': 'Blush Camellia', 'NOX032': 'Violet Reverie',
     'NOX033': 'Glossy Rose', 'NVJ006': 'Vintage Crown', 'NOJ036': 'Garnet Petals',
+    'NOF050': 'Ivory Safari', 'NVJ007': 'Mocha Marble',
 }
 
 # ---- 近期新款（明细表里标粉色） ----
 NEW_SKUS = {
-    'NOJ036', 'NOX031', 'NOX032', 'NOX033', 'NVJ006', 'NVX006',
-    'NWX004',
+    'NOF050', 'NOJ036', 'NOX031', 'NOX032', 'NOX033', 'NPX015',
+    'NVJ006', 'NVJ007', 'NVX006', 'NWX004',
 }
 
 # ---- 无尺寸特殊款（独立成行、灰色背景、不参与库位拣货） ----
