@@ -102,13 +102,16 @@ SKU_NAMES = {
     'NOF047': 'Vintage Marigold', 'NOF048': 'Garden Dew', 'NOX031': 'Gilded Truffle',
     'NVX006': 'Polka Petal', 'NWX004': 'Blush Camellia', 'NOX032': 'Violet Reverie',
     'NOX033': 'Glossy Rose', 'NVJ006': 'Vintage Crown', 'NOJ036': 'Garnet Petals',
-    'NOF050': 'Ivory Safari', 'NVJ007': 'Mocha Marble',
+    'NOF050': 'Ivory Safari', 'NVJ007': 'Mocha Marble', 'NOX034': 'Crimson Charm',
+    'NOX035': 'Golden Fig', 'NOF051': 'Crimson Carnival', 'NVF009': 'Toffee Camellia',
+    'NVF010': 'Spooky Starlit', 'NOJ037': 'Spider Night', 'NOJ038': 'Scarlet Masque',
 }
 
 # ---- 近期新款（明细表里标粉色） ----
 NEW_SKUS = {
-    'NOF050', 'NOJ036', 'NOX031', 'NOX032', 'NOX033', 'NPX015',
-    'NVJ006', 'NVJ007', 'NVX006', 'NWX004',
+    'NOF050', 'NOF051', 'NOJ036', 'NOJ037', 'NOJ038', 'NOX031',
+    'NOX032', 'NOX033', 'NOX034', 'NOX035', 'NPX015', 'NVF009',
+    'NVF010', 'NVJ006', 'NVJ007', 'NVX006', 'NWX004',
 }
 
 # ---- 无尺寸特殊款（独立成行、灰色背景、不参与库位拣货） ----
