@@ -129,4 +129,6 @@ B_CHAIN_SKU_MAP = {
     'NSB001': '美甲折叠盒 Storage Box',
     'NOB001': 'Organizer Binder 美甲册',
     'NOB002': 'Organizer Binder 美甲册',
+    'NRP001': 'Remover Pen  卸甲笔',
+    'NPK001': 'ProTouch Kit 灯胶套装',
 }
