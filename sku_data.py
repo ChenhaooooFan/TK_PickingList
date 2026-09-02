@@ -108,16 +108,17 @@ SKU_NAMES = {
     'NOX036': 'Mystic Web', 'NOX037': 'Sapphire Crown', 'NWF011': 'Safari Rose',
     'NOF052': 'Cream Marble', 'NOF053': "Witch's Lace", 'NWJ001': 'Cocoa Grace',
     'NOF054': 'Winery Leopard', 'NWF012': 'Praline Tigress', 'NOJ039': 'Olive Luxe',
-    'NOJ040': 'Emerald Rodeo',
+    'NOJ040': 'Emerald Rodeo', 'NOX038': 'Petal Latte', 'NOF055': 'Cinnamon Star',
+    'NOJ041': 'Safari Chain',
 }
 
 # ---- 近期新款（明细表里标粉色） ----
 NEW_SKUS = {
-    'NOF050', 'NOF051', 'NOF052', 'NOF053', 'NOF054', 'NOJ036',
-    'NOJ037', 'NOJ038', 'NOJ039', 'NOJ040', 'NOX031', 'NOX032',
-    'NOX033', 'NOX034', 'NOX035', 'NOX036', 'NOX037', 'NPX015',
-    'NVF009', 'NVF010', 'NVJ006', 'NVJ007', 'NVX006', 'NWF011',
-    'NWF012', 'NWJ001', 'NWX004',
+    'NOF050', 'NOF051', 'NOF052', 'NOF053', 'NOF054', 'NOF055',
+    'NOJ036', 'NOJ037', 'NOJ038', 'NOJ039', 'NOJ040', 'NOJ041',
+    'NOX031', 'NOX032', 'NOX033', 'NOX034', 'NOX035', 'NOX036',
+    'NOX037', 'NOX038', 'NPX015', 'NVF009', 'NVF010', 'NVJ006',
+    'NVJ007', 'NVX006', 'NWF011', 'NWF012', 'NWJ001', 'NWX004',
 }
 
 # ---- 无尺寸特殊款（独立成行、灰色背景、不参与库位拣货） ----
