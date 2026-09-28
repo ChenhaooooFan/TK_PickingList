@@ -112,12 +112,14 @@ SKU_NAMES = {
     'NOJ041': 'Safari Chain', 'NWF013': 'Mauve Metal', 'NWF014': 'Ruby Safari',
     'NOF056': 'Bronze Lace', 'NOF057': 'Gothic Treasure', 'NWF015': 'Caramel Prowl',
     'NWF016': 'Firework Safari', 'NOF058': 'Rouge Blossom', 'NOJ043': 'Azure Nocturne',
-    'NVJ008': 'Maple Reverie',
+    'NVJ008': 'Maple Reverie', 'NOF059': 'Baroque Safari', 'NOF060': 'Gilded Nile',
+    'NWF018': 'Imperial Florals', 'NWF019': 'Maison Tortoise', 'NOJ044': 'Safari Blossom',
+    'NVJ009': 'Sacred Ash',
 }
 
 # ---- 近期新款（明细表里标粉色） ----
 NEW_SKUS = {
-    'NOF058', 'NOJ043', 'NVJ008', 'NWF014',
+    'NOF059', 'NOF060', 'NOJ044', 'NVJ009', 'NWF018', 'NWF019',
 }
 
 # ---- 无尺寸特殊款（独立成行、灰色背景、不参与库位拣货） ----
