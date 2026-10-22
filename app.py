@@ -622,11 +622,12 @@ def sku_name(prefix: str) -> str:
 
 def location_sort_key(loc: str):
     if not loc or loc == LOC_UNKNOWN:
-        return (99, 99, 99)
-    m = re.match(r'^([AB])-(\d{2})-(\d{2})$', loc)
+        return ("~~", 99, 99)
+    # 区(字母) → 排 → 格,如 A-01-01 < A-02-05 < C-01-01 < D-01-01;任意字母区都认
+    m = re.match(r'^([A-Za-z]+)\s*-\s*(\d+)\s*-\s*(\d+)$', loc.strip())
     if not m:
-        return (98, 0, 0)
-    return (0 if m.group(1) == 'A' else 1, int(m.group(2)), int(m.group(3)))
+        return ("~", 0, 0)
+    return (m.group(1).upper(), int(m.group(2)), int(m.group(3)))
 
 
 def build_summary(sku_counts: dict, sku_to_location: dict) -> pd.DataFrame:
