@@ -118,13 +118,13 @@ SKU_NAMES = {
     'NOF061': 'Burgundy Dahlia', 'NWF020': 'Peral Locket', 'NVF011': 'Caramel Gleam',
     'NOJ045': 'Cocoa Kitten', 'NOX040': 'Mint Haze', 'NOX041': 'Vintage Plum',
     'NOF062': 'Ivory Noir', 'NWF022': 'Sliver Frost', 'NOJ046': 'Peppermint Bow',
+    'NOX042': 'Purr Bloom', 'NOJ047': 'Silver Whisper', 'NOJ048': 'Bronze Wild',
+    'NVJ010': 'Icy Glimmer',
 }
 
 # ---- 近期新款（明细表里标粉色） ----
 NEW_SKUS = {
-    'NOF059', 'NOF060', 'NOF061', 'NOF062', 'NOJ044', 'NOJ045',
-    'NOJ046', 'NOX039', 'NOX040', 'NOX041', 'NVF011', 'NVJ009',
-    'NWF017', 'NWF018', 'NWF019', 'NWF020', 'NWF022',
+    'NOJ047', 'NOJ048', 'NOX042', 'NVJ010',
 }
 
 # ---- 无尺寸特殊款（独立成行、灰色背景、不参与库位拣货） ----
