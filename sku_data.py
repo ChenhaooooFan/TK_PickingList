@@ -141,4 +141,5 @@ B_CHAIN_SKU_MAP = {
     'NOB002': 'Organizer Binder 美甲册',
     'NRP001': 'Remover Pen  卸甲笔',
     'NPK001': 'ProTouch Kit 灯胶套装',
+    'NTC001': 'Nail Tip Clipper 指甲剪',
 }

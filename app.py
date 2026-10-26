@@ -7,12 +7,13 @@ NailVesta 拣货单汇总工具
 【输出】对账面板、按库位排序的明细表、B链产品汇总、可下载 CSV
 
 【对账公式】期望件数 = PDF 标注 Item quantity + bundle 拆分多出件数
-           实际件数 = 所有提取 SKU 件数总和(含 NF001/NB001/Choose Sets/B链)
+           实际件数 = 所有提取 SKU 件数总和(含 NF001/NB001/Choose Sets/Auction/B链)
 
 【特殊 SKU】
 - NF001 免费赠品 / NB001 收纳册:无尺寸,独立成行(灰色)
 - Choose N Sets:占位 SKU,按段落汇总成"混合套装"一行(灰色)
-- B链产品(工具包/折叠盒/美甲册):单独汇总在 B链区域
+- AUCTION 拍卖单:PDF 不写客人选的款,汇总成一行(灰色)+ 提示单数,按直播记录配货
+- B链产品(工具包/折叠盒/美甲册/指甲剪等):单独汇总在 B链区域
 
 【维护】新款上架只需更新 sku_data.py,详见该文件顶部说明。
 【依赖】streamlit, pandas, pymupdf
@@ -456,6 +457,15 @@ ORPHAN_DIGIT_RE = re.compile(
     r'\s*[\r\n]+\s*(?P<d>\d)\s*-\s*(?P<size>[SML])'
 )
 CHOOSE_SETS_KEY = "__CHOOSE_SETS__"
+# Seller SKU 独占一行的 AUCTION / AUCTION-HALLOWEEN(可能被换行拆开),下一行是数量,再往下是订单号;
+# 订单号中间可能夹着换页表头
+PAGE_HEADER = r'No\s+Product\s+image\s+Product\s+name\s+SKU\s+Seller\s+SKU\s+Qty\s+Order\s+ID'
+AUCTION_RE = re.compile(
+    r'(?m)^(?P<sku>AUCTION(?:-\s*[A-Z0-9]+)*)[ \t]*\n\s*(?P<qty>[1-9]\d{0,2})[ \t]*\n'
+    r'(?P<ids>(?:\s*(?:\d{15,20}|' + PAGE_HEADER + r'))+)'
+)
+ORDER_ID_RE = re.compile(r'\b\d{15,20}\b')
+AUCTION_KEY = "__AUCTION__"
 
 
 @dataclass
@@ -467,7 +477,13 @@ class ParseResult:
     mystery_units: int = 0                                 # NF001 赠品件数
     binder_units: int = 0                                  # NB001 收纳册件数
     choose_sets_units: int = 0                             # Choose Sets 件数
+    auction_units: int = 0                                 # AUCTION 拍卖件数
+    auction_orders: dict = field(default_factory=lambda: defaultdict(int))  # 拍卖 Seller SKU → 订单数
     b_chain_counts: dict = field(default_factory=lambda: defaultdict(int))
+
+    @property
+    def auction_order_total(self) -> int:
+        return sum(self.auction_orders.values())
 
     @property
     def b_chain_total(self) -> int:
@@ -597,7 +613,15 @@ def parse_pdf(raw: bytes) -> ParseResult:
     if r.choose_sets_units:
         r.sku_counts[CHOOSE_SETS_KEY] += r.choose_sets_units
 
-    # 5) B链产品(优先匹配"数量+运单号"的组合,更可靠)
+    # 5) AUCTION 拍卖单(PDF 没写客人选的款,只能整体计数)
+    for m in AUCTION_RE.finditer(text):
+        sku = re.sub(r'\s+', '', m.group('sku'))
+        r.auction_units += int(m.group('qty'))
+        r.auction_orders[sku] += len(ORDER_ID_RE.findall(m.group('ids')))
+    if r.auction_units:
+        r.sku_counts[AUCTION_KEY] += r.auction_units
+
+    # 6) B链产品(优先匹配"数量+运单号"的组合,更可靠)
     for m in B_CHAIN_RE.finditer(text):
         after = text[m.end(): m.end() + 300]
         mq = QTY_WITH_TRACKING.search(after)
@@ -617,6 +641,8 @@ LOC_UNKNOWN = "未识别库位"
 def sku_name(prefix: str) -> str:
     if prefix == CHOOSE_SETS_KEY:
         return "Choose 2 Sets(混合套装)"
+    if prefix == AUCTION_KEY:
+        return "Auction 拍卖单(款式看直播记录)"
     return SKU_NAMES.get(prefix, "❓未识别")
 
 
@@ -661,7 +687,7 @@ def build_summary(sku_counts: dict, sku_to_location: dict) -> pd.DataFrame:
         pivot = pd.concat([pivot, extra], ignore_index=True)
 
     def map_location(prefix):
-        if prefix in SIZELESS_SKUS or prefix == CHOOSE_SETS_KEY:
+        if prefix in SIZELESS_SKUS or prefix in (CHOOSE_SETS_KEY, AUCTION_KEY):
             return LOC_SPECIAL
         return sku_to_location.get(prefix, LOC_UNKNOWN)
 
@@ -672,7 +698,7 @@ def build_summary(sku_counts: dict, sku_to_location: dict) -> pd.DataFrame:
 def sort_summary(pivot: pd.DataFrame, by_location: bool) -> pd.DataFrame:
     """特殊款永远排在最后;其余按库位动线或产品名 A-Z 排"""
     p = pivot.copy()
-    p["_special"] = p["SKU Prefix"].isin(SIZELESS_SKUS | {CHOOSE_SETS_KEY}).astype(int)
+    p["_special"] = p["SKU Prefix"].isin(SIZELESS_SKUS | {CHOOSE_SETS_KEY, AUCTION_KEY}).astype(int)
     if by_location:
         p["_key"] = p["库位"].map(location_sort_key)
     else:
@@ -780,23 +806,33 @@ def render_reconciliation(r: ParseResult, pivot: pd.DataFrame):
         ("success", "实际提取", r.total_qty, "含 bundle + B链"),
         ("", "普通甲片", int(pivot.loc[~special, "Total"].sum()), "有库位"),
         ("muted", "特殊款", int(pivot.loc[special, "Total"].sum()), "无尺寸/无库位"),
-        ("bchain", "B链产品", r.b_chain_total, "工具包/折叠盒/册"),
+        ("bchain", "B链产品", r.b_chain_total, "工具包/折叠盒/册/指甲剪"),
     ])
     detail_section("📋 提取明细", [
         ("🎁 Free Giveaway (NF001)", "pink", f"{r.mystery_units} 件"),
         ("📒 Organizer Binder (NB001)", "pink", f"{r.binder_units} 件"),
         ("🎀 Choose Sets(混合套装)", "pink", f"{r.choose_sets_units} 件"),
+        ("🔨 Auction 拍卖单", "pink", f"{r.auction_order_total} 单 / {r.auction_units} 件"),
         ("🔗 bundle 拆分多出件数", "", f"+{r.bundle_extra} 件"),
         ("🛍️ B链产品合计", "blue", f"{r.b_chain_total} 件"),
     ])
 
 
 def render_warnings(r: ParseResult, pivot: pd.DataFrame):
-    """未识别 SKU / 缺库位 / 特殊款提示"""
+    """Auction / 未识别 SKU / 缺库位 / 特殊款提示"""
+    if r.auction_units:
+        n_orders = r.auction_order_total
+        unit_note = f"(共 {r.auction_units} 件)" if r.auction_units != n_orders else ""
+        breakdown = "、".join(f"{sku} {n} 单" for sku, n in sorted(r.auction_orders.items()))
+        status_bar("warning", "🔨",
+                   f"<strong>本批有 {n_orders} 个 Auction 单</strong>{unit_note}:{breakdown}<br>"
+                   '<span style="font-size:12px; opacity:0.85;">PDF 只写了 AUCTION,没写客人选了哪几款;'
+                   '已计入对账,但不在库位拣货里,请按直播记录配货</span>')
+
     unknown = sorted({
         sku.split("-")[0]
         for sku in r.sku_counts
-        if sku.split("-")[0] not in SKU_NAMES and sku != CHOOSE_SETS_KEY
+        if sku.split("-")[0] not in SKU_NAMES and sku not in (CHOOSE_SETS_KEY, AUCTION_KEY)
     })
     if unknown:
         chips = " ".join(
