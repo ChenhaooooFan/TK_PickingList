@@ -121,12 +121,14 @@ SKU_NAMES = {
     'NOX042': 'Purr Bloom', 'NOJ047': 'Silver Whisper', 'NOJ048': 'Bronze Wild',
     'NVJ010': 'Icy Glimmer', 'NWX005': 'Silver Eclipse', 'NOX043': 'Bakery Kitty',
     'NVX007': 'Jelly Jive', 'NOF064': 'Harvest Feline', 'NOF065': 'Doxie Bean',
-    'NOJ049': 'Midnight Purr',
+    'NOJ049': 'Midnight Purr', 'NVX008': 'Sapphire Flake', 'NVF013': 'Rainbow Rebel',
+    'NOF068': 'Navy Blossom',
 }
 
 # ---- 近期新款（明细表里标粉色） ----
 NEW_SKUS = {
-    'NOF064', 'NOF065', 'NOJ049', 'NOX043', 'NVX007', 'NWX005',
+    'NOF064', 'NOF065', 'NOF068', 'NOJ049', 'NOX043', 'NVF013',
+    'NVX007', 'NVX008', 'NWX005',
 }
 
 # ---- 无尺寸特殊款（独立成行、灰色背景、不参与库位拣货） ----
