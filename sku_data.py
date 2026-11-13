@@ -123,13 +123,12 @@ SKU_NAMES = {
     'NVX007': 'Jelly Jive', 'NOF064': 'Harvest Feline', 'NOF065': 'Doxie Bean',
     'NOJ049': 'Midnight Purr', 'NVX008': 'Sapphire Flake', 'NVF013': 'Rainbow Rebel',
     'NOF068': 'Navy Blossom', 'NOX044': 'Berry Merry', 'NOF067': 'Twinkle Knit',
-    'NOJ050': 'Jolly Snowman',
+    'NOJ050': 'Jolly Snowman', 'NOF066': 'Peppermint Parade',
 }
 
 # ---- 近期新款（明细表里标粉色） ----
 NEW_SKUS = {
-    'NOF064', 'NOF065', 'NOF067', 'NOF068', 'NOJ049', 'NOJ050',
-    'NOX043', 'NOX044', 'NVF013', 'NVX007', 'NVX008', 'NWX005',
+    'NOF066',
 }
 
 # ---- 无尺寸特殊款（独立成行、灰色背景、不参与库位拣货） ----
